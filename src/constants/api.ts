@@ -1,0 +1,1 @@
+export const STATUS_API = 'https://api-evmx-devnet.socket.tech';
