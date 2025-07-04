@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ethers } from "ethers";
 import { APP_GATEWAY_ABI, ERC20_ABI, CHAIN_INFO, SUPER_TOKEN_CONTRACT_ID, VAULT_CONTRACT_ID, CHAIN_SLUGS, SUPPORTED_CHAINS } from '@/constants';
-import { getAppGatewayContract, getOnChainAddress } from '@/utils/contracts';
+import { getAppGatewayContract, getAppGatewayContractWithSigner, getOnChainAddress } from '@/utils/contracts';
 import { createPermitSignature } from '@/utils/permit';
 import { STATUS_API } from "@/constants/api";
 
@@ -222,7 +222,7 @@ export default function DepositMintPanel({
       });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const appGateway = getAppGatewayContract();
+      const appGateway = getAppGatewayContractWithSigner(signer);
       const value = ethers.utils.parseUnits(amount, 18);
       const order = {
         chainSlug: CHAIN_SLUG_SUPERTOKEN,
@@ -266,7 +266,7 @@ export default function DepositMintPanel({
       });
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
-      const appGateway = getAppGatewayContract();
+      const appGateway = getAppGatewayContractWithSigner(signer);
       const value = ethers.utils.parseUnits(mintAmount, 18);
       const sent = Date.now();
       console.log(`[Mint] Sending tx at ${new Date(sent).toISOString()}`);

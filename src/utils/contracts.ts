@@ -16,3 +16,9 @@ export const getAppGatewayContract = () => {
   if (!appGatewayAddress) throw new Error('App gateway address not set for EVMX');
   return new ethers.Contract(appGatewayAddress, APP_GATEWAY_ABI, provider);
 }
+
+export const getAppGatewayContractWithSigner = (signer: ethers.Signer) => {
+  const appGatewayAddress = CHAIN_INFO[CHAIN_SLUGS.EVMX].appGateway;
+  if (!appGatewayAddress) throw new Error('App gateway address not set for EVMX');
+  return new ethers.Contract(appGatewayAddress, APP_GATEWAY_ABI, signer);
+}
